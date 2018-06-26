@@ -1,37 +1,109 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * Building block for our linked list implementation.
+ */	
+struct SNode {
+	int data;
+	SNode *next;
 
-class SNode {
-	public:
-		SNode(int _data) {
-			data = _data;
-		}
-
-		int data;
-		SNode *next = NULL;
+	SNode(int _data) {
+		data = _data;
+		next = NULL;
+	}
 };
 
-class SinglyLinkedList {
+class SinglyLinkedList {	
+	SNode *head;
+	SNode *tail;
+	int sz;
+	
 	public:
-		SNode *head = NULL;
-
-		void append(int value) {
-			SNode *newNode = new SNode(value);
-			cout << "append(): head = " << head << endl;
-			if (!head) {
-				head = newNode;
-			} else {
-				SNode *current = head;
-				while (current->next) {
-					current = current->next;
-				}
-				current->next = newNode;
-			}
+		SinglyLinkedList() {
+			head = tail = NULL;
+			sz = 0;
 		}
 
+		/**
+		 *  Add a value to rear of the list.
+		 *  Time complexity: O(1)
+		 */	
+		void append(int value) {
+			SNode *newNode = new SNode(value);
+			if (!head) {
+				head = tail = newNode;
+			} else {
+				tail->next = newNode;
+				tail = tail->next;
+			}
+			++sz;
+		}
+
+		void insert(int index, int value) {
+			if (index < 0 || index > sz) {
+				throw invalid_argument( "index out of bound exception");
+			}
+
+			if (sz == 0 || index == sz) { // optimization: empty list or insert as last index
+				append(value);
+				return;
+			}
+
+			int i = 0;
+			SNode *current = head;
+			SNode *prev = NULL;
+			while (i < index && current) {
+				++i;
+				prev = current;
+				current = current->next;
+			}
+			SNode *newNode = new SNode(value);
+			if (current == head) {
+				if (!head) {
+					head = tail = newNode;
+				} else {
+					newNode->next = head;
+					head = newNode;
+				}
+			} else if (current == tail) {
+				// This won't happen, just here for the sake 
+				// of explaining the different scenario
+				tail->next = newNode;
+				tail = tail->next;
+			} else {
+				prev->next = newNode;
+				newNode->next = current;
+			}
+			++sz;
+		}
+
+
+		/**
+		 *
+		 * Find an element in the list
+		 * Return true if found else otherwise.
+		 * Time complexity: O(n)
+		 */
+		bool find(int value) {
+			SNode *current = head;
+			bool found = false;
+			while (current) {
+				if (current->data == value) {
+					found = true;
+					break;
+				}
+				current = current->next;
+			}
+			return found;
+		}
+
+		/**
+		 *  Remove an element from list
+		 *	return - true if the value is removed, false otherwise.
+		 *  Time complexity: O(n)
+		 */	
 		bool remove(int value) {
-			cout << "remove() : head = " << head << endl;
 			if (!head)
 				return false;
 			SNode *current = head;
@@ -45,59 +117,114 @@ class SinglyLinkedList {
 			}
 			if (!current)
 				return false;
-			cout << "Found value : " << value << ", current = " << current << endl;
 
 			if (current == head) {
-				cout << "came here" << endl;
-				cout << "head = " << head << endl;
-				cout << "head->next = " << head->next << endl;
-				head = head->next;
+				if (head == tail) {
+					head = tail = NULL;
+				} else {
+					head = head->next;
+				}
+			} else if (current == tail) {
+				prev->next = NULL;
+				tail = prev;
 			} else {
 				prev->next = current->next;
 			}
 			delete current;
+			--sz;
 			return true;
 		}
 
+		/**
+		 * Print the list 
+		 * Time complexity: O(n)
+		 */
 		void print() {
 			if (!head) {
-				cout << "list is empty" << endl;
+				cout << "[]" << endl;
 				return;
 			}
 			SNode *current = head;
-			while (current) {
-				cout << current->data << " ";
+			do {
+				cout << current->data;
 				current = current->next;
-			}
+				if (current) {
+					cout << " -> ";
+				}
+			} while(current);
 			cout << endl;
+		}
+
+		/**
+		 *
+		 * Returns the size of the list
+		 */
+		int size() {
+			return sz;
 		}
 };
 
-void remove(SinglyLinkedList sl, int value) {
+/**
+ *
+ * Test wrapper methods to print some useful information 
+ * on performing operations on the linked list
+ */
+void remove(SinglyLinkedList &sl, int value) {
 	if (sl.remove(value)) {
-		cout << value << ", removed successfully." << endl;
+		cout << value << " is removed successfully." << endl;
 	} else {
-		cout << value << ", is not there." << endl;
+		cout << value << " is not there." << endl;
 	}
 	sl.print();
 }
 
+void find(SinglyLinkedList &sl, int value) {
+	if (sl.find(value)) {
+		cout << value << " is found" << endl;
+	} else {
+		cout << value << " is not found" << endl;
+	}
+}
+
+void insert(SinglyLinkedList &sl, int index, int value) {
+	cout << "Inserting " << value << ", at index: " << index << endl;
+	sl.insert(index, value);
+	sl.print();
+}
+
+/**
+ *
+ * End of Test operational methods
+ */
+
+/**
+ *
+ * main method
+ */
 int main() {
 	SinglyLinkedList sl;
 	for (int i = 1; i <= 10; i++) {
-		sl.print();
-		cout << "i = " << i << endl;
 		sl.append(i);
 	}
 	sl.print();
 
-	// removing some data from list
+	// Finding, inserting and removing elements in arbitarary order
+	cout << "Initial size of the list is: " << sl.size() << endl;
+	find(sl, 7);
 	remove(sl, 5);
 	remove(sl, 11);
+	insert(sl, 3, 15);
 	remove(sl, 9);
+	find(sl, 5);
+	find(sl, 6);
+	insert(sl, 0, 100);
 	remove(sl, 1);
 	remove(sl, 4);
+	insert(sl, 8, 1);
 	remove(sl, 2);
+	find(sl, 3);
+	find(sl, 10);
+	cout << "Final size of the list is: " << sl.size() << endl;
 
 	return 0;
 }
