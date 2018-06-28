@@ -4,8 +4,8 @@
 class array_list {
 	public:
 		array_list() {
-			mArray = new int[5];
-			mLength = 5;
+			mArray = new int[INIT_SIZE];
+			mLength = INIT_SIZE;
 			mSize = 0;
 		}
 		
