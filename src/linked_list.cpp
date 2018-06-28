@@ -21,13 +21,13 @@ void SinglyLinkedList :: append(int value) {
 }
 
 void SinglyLinkedList :: insert(int index, int value) {
-	if (index < 0 || index > sz) {
+	if (index < 0 || index >= sz) {
 		stringstream ss;
 		ss << "Index out of bound exception: " << index;
 		throw invalid_argument(ss.str());
 	}
 
-	if (sz == 0 || index == sz) { // optimization: empty list or insert as last index
+	if (sz == 0 || index == sz-1) { // optimization: empty list or insert as last index
 		append(value);
 		return;
 	}
@@ -154,14 +154,14 @@ void DoublyLinkedList :: append(int data) {
 }
 
 void DoublyLinkedList :: insert(int index, int data) {
-	if (index < 0 || index > sz) {
+	if (index < 0 || index >= sz) {
 		stringstream ss;
 		ss << "Index out of bound exception: " << index;
 		throw invalid_argument(ss.str());
 	}
 
 	// Check if list is empty or last index insertion
-	if (sz == 0 || index == sz) {
+	if (sz == 0 || index == sz-1) {
 		append(data);
 		return;
 	}

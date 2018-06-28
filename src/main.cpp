@@ -1,5 +1,6 @@
 #include <iostream>
 #include "linked_list.h"
+#include "array_list.h"
 using namespace std;
 /**
  *
@@ -64,6 +65,35 @@ void insert(DoublyLinkedList &dl, int index, int value) {
 
 /**
  *
+ * Array list operations
+ */
+void remove(array_list &al, int value) {
+	if (al.remove(value)) {
+		cout << value << " is removed successfully." << endl;
+	} else {
+		cout << value << " is not there." << endl;
+	}
+	al.print();
+}
+
+void find(array_list &al, int value) {
+	if (al.find(value)) {
+		cout << value << " is found" << endl;
+	} else {
+		cout << value << " is not found" << endl;
+	}
+}
+
+void insert(array_list &al, int index, int value) {
+	cout << "Inserting " << value << ", at index: " << index << endl;
+	al.insert(index, value);
+	al.print();
+}
+
+
+
+/**
+ *
  * Invoking operations
  */
 void processSinglyLinkedList() {
@@ -87,7 +117,7 @@ void processSinglyLinkedList() {
 	insert(sl, 0, 100);
 	remove(sl, 1);
 	remove(sl, 4);
-	insert(sl, 8, 1);
+	insert(sl, 7, 1);
 	remove(sl, 2);
 	find(sl, 3);
 	find(sl, 10);
@@ -115,12 +145,42 @@ void processDoublyLinkedList() {
 	insert(dl, 0, 100);
 	remove(dl, 1);
 	remove(dl, 4);
-	insert(dl, 8, 1);
+	insert(dl, 7, 1);
 	remove(dl, 2);
 	find(dl, 3);
 	find(dl, 10);
 	cout << "Final size of the list is: " << dl.size() << endl;
 }
+
+
+void processArrayList() {
+	cout << "Demo on ArrayList" << endl;
+	cout << "######################################################################" << endl;
+	array_list al;
+	for (int i = 1; i <= 10; i++) {
+		al.append(i);
+	}
+	al.print();
+
+	// Finding, inserting and removing elements in arbitarary order
+	cout << "Initial size of the list is: " << al.size() << endl;
+	find(al, 7);
+	remove(al, 5);
+	remove(al, 11);
+	insert(al, 3, 15);
+	remove(al, 9);
+	find(al, 5);
+	find(al, 6);
+	insert(al, 0, 100);
+	remove(al, 1);
+	remove(al, 4);
+	insert(al, 7, 1);
+	remove(al, 2);
+	find(al, 3);
+	find(al, 10);
+	cout << "Final size of the list is: " << al.size() << endl;
+}
+
 
 
 /**
@@ -138,6 +198,8 @@ int main() {
 	processSinglyLinkedList();
 	cout << "######################################################################" << endl;
 	processDoublyLinkedList();
+	cout << "######################################################################" << endl;
+	processArrayList();
 	cout << "######################################################################" << endl;
 	return 0;
 }
