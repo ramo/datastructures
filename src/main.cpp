@@ -2,6 +2,12 @@
 #include "linked_list.h"
 #include "array_list.h"
 using namespace std;
+
+typedef array_list::iterator a_itr;
+typedef SinglyLinkedList::iterator s_itr;
+typedef DoublyLinkedList::iterator d_itr;
+
+
 /**
  *
  * Test wrapper methods to print some useful information 
@@ -90,6 +96,26 @@ void insert(array_list &al, int index, int value) {
 	al.print();
 }
 
+void print(a_itr begin, a_itr end) {
+	for (a_itr it = begin; it != end; it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+}
+
+void print(s_itr begin, s_itr end) {
+	for (s_itr it = begin; it != end; it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+}
+
+void print(d_itr begin, d_itr end) {
+	for (d_itr it = begin; it != end; it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+}
 
 
 /**
@@ -122,6 +148,8 @@ void processSinglyLinkedList() {
 	find(sl, 3);
 	find(sl, 10);
 	cout << "Final size of the list is: " << sl.size() << endl;
+	cout << "Print SinglyLinkedList using iterator pattern" << endl;
+	print(sl.begin(), sl.end());
 }
 
 void processDoublyLinkedList() {
@@ -150,6 +178,9 @@ void processDoublyLinkedList() {
 	find(dl, 3);
 	find(dl, 10);
 	cout << "Final size of the list is: " << dl.size() << endl;
+	cout << "Print DoublyLinkedList using iterator pattern" << endl;
+	print(dl.begin(), dl.end());
+
 }
 
 
@@ -179,6 +210,8 @@ void processArrayList() {
 	find(al, 3);
 	find(al, 10);
 	cout << "Final size of the list is: " << al.size() << endl;
+	cout << "Print ArrayList using iterator pattern" << endl;
+	print(al.begin(), al.end());
 }
 
 

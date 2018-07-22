@@ -42,6 +42,48 @@ class SinglyLinkedList {
 		bool find(int data);
 		int size();
 		void print();
+
+		class iterator : public std::iterator<std::forward_iterator_tag, int> {
+			public:
+				friend class array_list;
+				SNode *curr;
+
+				// the following typedefs are needed for the iterator to play nicely with C++ STL
+		        typedef int value_type;
+		        typedef int& reference;
+		        typedef int* pointer;
+		        typedef int difference_type;
+		        typedef std::forward_iterator_tag iterator_category;
+
+		        iterator(SNode* x = 0):curr(x){}
+
+		        bool operator==(const iterator& x) const {
+		        	return curr == x.curr;
+		        }
+
+		        bool operator!=(const iterator& x) const {
+		        	return curr != x.curr;
+		        }
+
+		        reference operator*() const {
+		        	return curr->data;
+		        }
+
+		        iterator& operator++() { //pre increment
+		        	curr = curr->next;
+		        	return *this;
+		        }
+
+		        iterator operator++(int) { //post increment
+		        	iterator tmp(curr);
+		        	curr = curr->next;
+		        	return tmp;
+		        }
+		};
+
+		iterator begin() {return iterator(head);}
+		iterator end() {return iterator(NULL);}
+
 };
 
 class DoublyLinkedList
@@ -63,5 +105,47 @@ class DoublyLinkedList
 		bool find(int data);
 		int size();
 		void print();
+
+		class iterator : public std::iterator<std::forward_iterator_tag, int> {
+			public:
+				friend class array_list;
+				DNode *curr;
+
+				// the following typedefs are needed for the iterator to play nicely with C++ STL
+		        typedef int value_type;
+		        typedef int& reference;
+		        typedef int* pointer;
+		        typedef int difference_type;
+		        typedef std::forward_iterator_tag iterator_category;
+
+		        iterator(DNode* x = 0):curr(x){}
+
+		        bool operator==(const iterator& x) const {
+		        	return curr == x.curr;
+		        }
+
+		        bool operator!=(const iterator& x) const {
+		        	return curr != x.curr;
+		        }
+
+		        reference operator*() const {
+		        	return curr->data;
+		        }
+
+		        iterator& operator++() { //pre increment
+		        	curr = curr->next;
+		        	return *this;
+		        }
+
+		        iterator operator++(int) { //post increment
+		        	iterator tmp(curr);
+		        	curr = curr->next;
+		        	return tmp;
+		        }
+		};
+
+		iterator begin() {return iterator(head);}
+		iterator end() {return iterator(NULL);}
+
 };
 #endif
