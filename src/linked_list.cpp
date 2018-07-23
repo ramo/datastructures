@@ -27,7 +27,7 @@ void SinglyLinkedList :: insert(int index, int value) {
 		throw invalid_argument(ss.str());
 	}
 
-	if (sz == 0 || index == sz-1) { // optimization: empty list or insert as last index
+	if (sz == 0) { // empty list scenario
 		append(value);
 		return;
 	}
@@ -42,9 +42,9 @@ void SinglyLinkedList :: insert(int index, int value) {
 	}
 	SNode *newNode = new SNode(value);
 	/**
-	 * Note: As we have already handled empty list and last index 
-	 * insertion using append() function. Here we care only about
-	 * middle elements and 0th index element insertion.
+	 * Note: We have already hanled first node insertion 
+	 * Here, chances are it can be head or middle node.
+	 * not the tail node.
 	 */
 	if (current == head) {
 		newNode->next = head;
@@ -160,8 +160,8 @@ void DoublyLinkedList :: insert(int index, int data) {
 		throw invalid_argument(ss.str());
 	}
 
-	// Check if list is empty or last index insertion
-	if (sz == 0 || index == sz-1) {
+	// Check if list is empty
+	if (sz == 0) {
 		append(data);
 		return;
 	}

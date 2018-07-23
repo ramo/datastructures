@@ -147,6 +147,7 @@ void processSinglyLinkedList() {
 	remove(sl, 2);
 	find(sl, 3);
 	find(sl, 10);
+	insert(sl, 7, 44);
 	cout << "Final size of the list is: " << sl.size() << endl;
 	cout << "Print SinglyLinkedList using iterator pattern" << endl;
 	print(sl.begin(), sl.end());
@@ -177,6 +178,7 @@ void processDoublyLinkedList() {
 	remove(dl, 2);
 	find(dl, 3);
 	find(dl, 10);
+	insert(dl, 7, 44);
 	cout << "Final size of the list is: " << dl.size() << endl;
 	cout << "Print DoublyLinkedList using iterator pattern" << endl;
 	print(dl.begin(), dl.end());
@@ -209,6 +211,7 @@ void processArrayList() {
 	remove(al, 2);
 	find(al, 3);
 	find(al, 10);
+	insert(al, 7, 44);
 	cout << "Final size of the list is: " << al.size() << endl;
 	cout << "Print ArrayList using iterator pattern" << endl;
 	print(al.begin(), al.end());
