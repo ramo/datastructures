@@ -1,6 +1,7 @@
 #include <iostream>
 #include "linked_list.h"
 #include "array_list.h"
+#include "binary_search_tree.h"
 using namespace std;
 
 typedef array_list::iterator a_itr;
@@ -218,6 +219,32 @@ void processArrayList() {
 }
 
 
+void processBST() {
+	cout << "Demo on BST" << endl;
+	cout << "######################################################################" << endl;
+	binary_search_tree bst;
+	bst.insert(10);
+	bst.insert(5);
+	bst.insert(25);
+	bst.insert(2);
+	bst.insert(7);
+	bst.insert(20);
+	bst.insert(35);
+	cout << "Size of the bst is : " << bst.size() << endl;
+	cout << "Print BST in order traversal" << endl;
+	bst.in_order();
+	cout << "Print BST pre order traversal" << endl;
+	bst.pre_order();
+	cout << "Print BST post order traversal" << endl;
+	bst.post_order();
+	cout << "Finding an element: 35 =>" << (bst.find(35) ? "Found" : "Not found") << endl;
+	cout << "Finding an element: 100 =>" << (bst.find(100) ? "Found" : "Not found") << endl;
+	cout << "Finding an element: 7 =>" << (bst.find(7) ? "Found" : "Not found") << endl;
+	cout << "Clear the bst" << endl;
+	bst.clear();
+	bst.in_order();
+}
+
 
 /**
  *
@@ -236,6 +263,8 @@ int main() {
 	processDoublyLinkedList();
 	cout << "######################################################################" << endl;
 	processArrayList();
+	cout << "######################################################################" << endl;
+	processBST();
 	cout << "######################################################################" << endl;
 	return 0;
 }
