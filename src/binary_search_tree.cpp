@@ -99,26 +99,61 @@ bool binary_search_tree :: find(int element) {
 	return result;
 }
 
-bool binary_search_tree :: remove(int element) {
-	return false;
+Node* helper_remove(Node* node, int element, int* result) {
+	if (!node) {
+		*result = 0;
+		return 0;
+	}
 
+	if (node->data < element) {
+		node->rightChild = helper_remove(node->rightChild, element, result);
+	} else if (node->data > element) {
+		node->leftChild = helper_remove(node->leftChild, element, result);
+	} else {
+		if (node->rightChild) { //case1: 2 child or single child (right)
+			//take successor 
+			Node* curr = node->rightChild;
+			while (curr->leftChild) {
+				curr = curr->leftChild;
+			}
+			node->data = curr->data;
+			node->rightChild = helper_remove(node->rightChild, curr->data, result);
+		} else if (node->leftChild) { //case2: single child (left)
+			//take predecessor
+			Node* curr = node->leftChild;
+			while (curr->rightChild) {
+				curr = curr->rightChild;
+			}
+			node->data = curr->data;
+			node->leftChild = helper_remove(node->leftChild, curr->data, result);
+		} else {		//case3: no child (leaf node)
+			delete node;
+			*result = 1;
+			return 0;
+		}
+	}
+	return node;
 }
 
-void helper_clear(Node* node) {
+bool binary_search_tree :: remove(int element) {
+	//Let's try recursive approach first
+	int result = 0;
+	root = helper_remove(root, element, &result);
+	return result == 1;
+}
+
+Node* helper_clear(Node* node) {
 	if (!node)
-		return;
-	helper_clear(node->leftChild);
-	helper_clear(node->rightChild);
+		return 0;
+	node->leftChild = helper_clear(node->leftChild);
+	node->rightChild = helper_clear(node->rightChild);
 	delete node;
+	return 0;
 }
 
 void binary_search_tree :: clear() {
 	cout << "Before clearing " << root << endl;
-	helper_clear(root);
-	root = 0;
+	root = helper_clear(root);
 	sz = 0;
 	cout << "After clearing " << root << endl;
 }
-
-
-

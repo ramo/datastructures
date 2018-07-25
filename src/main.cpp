@@ -230,6 +230,8 @@ void processBST() {
 	bst.insert(7);
 	bst.insert(20);
 	bst.insert(35);
+	bst.insert(30);
+	bst.insert(40);
 	cout << "Size of the bst is : " << bst.size() << endl;
 	cout << "Print BST in order traversal" << endl;
 	bst.in_order();
@@ -240,6 +242,17 @@ void processBST() {
 	cout << "Finding an element: 35 =>" << (bst.find(35) ? "Found" : "Not found") << endl;
 	cout << "Finding an element: 100 =>" << (bst.find(100) ? "Found" : "Not found") << endl;
 	cout << "Finding an element: 7 =>" << (bst.find(7) ? "Found" : "Not found") << endl;
+	cout << "================================Removal operations===================" << endl;
+	bst.in_order();
+	cout << "Remove element: 40 =>" << (bst.remove(40) ? "Removed" : "Not Removed") << endl;
+	bst.in_order();
+	cout << "Remove element: 100 =>" << (bst.remove(100) ? "Removed" : "Not Removed") << endl;
+	bst.in_order();
+	cout << "Remove element: 25 =>" << (bst.remove(25) ? "Removed" : "Not Removed") << endl;
+	bst.in_order();
+	cout << "Remove element: 10 =>" << (bst.remove(10) ? "Removed" : "Not Removed") << endl;
+	bst.in_order();
+
 	cout << "Clear the bst" << endl;
 	bst.clear();
 	bst.in_order();

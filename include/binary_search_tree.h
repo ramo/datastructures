@@ -26,8 +26,9 @@ class binary_search_tree {
 
 		/**
 		 *
-		 * Need to write a successor function also
-		 * this can be used for in order traversal from any node (not just root node)
+		 * We could have a successor function which could be used for in order 
+		 * traversal from any node (not just root node); But, for this we need 
+		 * parent pointer in each node. 
 		 */
 
 	private: 
